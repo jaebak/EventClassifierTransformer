@@ -7,6 +7,7 @@ import array
 import ROOT
 import ctypes
 import math
+import os
 
 def infer_sample(dataloader, model, loss_fn, mass_index, weight_index):
   """Infers network
@@ -216,6 +217,10 @@ if __name__ == '__main__':
   # Setup loss and optimizer
   loss_fn = nn.BCELoss()
   optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+
+  # Make output directory
+  if not os.path.exists('output'):
+    os.makedirs('output')
 
   # Train network for two epoch, where network with highest significance is selected.
   print('Training network')
